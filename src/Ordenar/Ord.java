@@ -16,8 +16,8 @@ import java.io.IOException;
  */
 public class Ord {
  
-    void values (long[] arr, int l) throws FileNotFoundException, IOException {
-        try (BufferedReader buffRead = new BufferedReader(new FileReader("C:\\Users\\William\\Desktop\\DadosGeoProcessamento2.csv"))) {
+    void values (String url,long[] arr, int l) throws FileNotFoundException, IOException {
+        try (BufferedReader buffRead = new BufferedReader(new FileReader(url))) {
             String linha = "";
             int count = 0;
             while (true) {
