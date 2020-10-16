@@ -55,7 +55,7 @@ public class RadixSort extends Ord {
         }
     }
     
-    RadixSort (long arr[]) {
+    void runRadixSort (long arr[]) {
         int n = arr.length;
         // Find the maximum number to know number of digits
         long m = getMax(arr, n);

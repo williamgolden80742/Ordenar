@@ -10,7 +10,8 @@ package Ordenar;
  * @author William
  */
 public class BubbleSort extends Ord {
-    BubbleSort(long[] arr) {
+    
+    void runBubbleSort(long[] arr) {
         int aLength = arr.length;
         long c = 0;
         for (int j = 0; j < aLength; j++) {

@@ -42,7 +42,7 @@ public class QuickSort extends Ord {
         }
     }
 
-    QuickSort(long[] arr) {
+    void runQuickSort(long[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }   
 }
