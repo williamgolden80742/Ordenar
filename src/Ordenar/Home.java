@@ -114,7 +114,7 @@ public class Home extends javax.swing.JFrame {
     }
     
     private void caminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caminhoActionPerformed
-       this.selectedFile=""+caminho.getSelectedFile();
+        this.selectedFile=""+caminho.getSelectedFile();
         try {
             setVisible(false);
             algoritmos();
@@ -125,7 +125,6 @@ public class Home extends javax.swing.JFrame {
 
     private void columnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_columnActionPerformed
         this.coluna = Integer.parseInt((String) column.getSelectedItem());
-        System.out.print(column.getSelectedItem());
     }//GEN-LAST:event_columnActionPerformed
 
     /**
@@ -157,10 +156,8 @@ public class Home extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Home().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Home().setVisible(true);
         });
     }
 
