@@ -86,7 +86,7 @@ public class Home extends javax.swing.JFrame {
     void algoritmos () throws IOException {
         
         long[] arr;
-        int pos = 6;
+        int pos = coluna;
         String url = selectedFile;
         RadixSort r = new RadixSort();
         BubbleSort b = new BubbleSort();
@@ -116,6 +116,7 @@ public class Home extends javax.swing.JFrame {
     private void caminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caminhoActionPerformed
        this.selectedFile=""+caminho.getSelectedFile();
         try {
+            setVisible(false);
             algoritmos();
         } catch (IOException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
