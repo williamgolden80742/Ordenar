@@ -109,7 +109,6 @@ public class Home extends javax.swing.JFrame {
         System.out.println("\n\nBubble Sort : \n");        
         b.runBubbleSort(arr);
         b.print(arr);
-  
     
     }
     
