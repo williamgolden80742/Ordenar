@@ -40,7 +40,6 @@ public class Ord {
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
                         if (countLinha == 1) {
                             setTitle(linha);
-                            System.out.println("Title : " + linha);
                         }
                     }
                     countLinha++;

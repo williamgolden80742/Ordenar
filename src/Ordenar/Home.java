@@ -8,12 +8,15 @@ package Ordenar;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -51,7 +54,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
 //            }
             if (arr[i] != 0) {
                 System.out.println(arr[i]);
-            }            
+            }
         }
     }
 
@@ -62,70 +65,82 @@ public class Home extends javax.swing.JFrame implements ActionListener {
             initTable = false;
         }
         Ord o = new Ord();
-        
+
         Date date = new Date();
-        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String time = fmt.format(date);
+
+        System.out.println("Coleta : " + time);
         
-        System.out.println("Coleta : "+time);
+        Scanner s = new Scanner(Runtime.getRuntime().exec("cmd /c tasklist").getInputStream());
+ 
         
+        modelo.addRow(new Object[]{
+            "",
+        });        
+        modelo.addRow(new Object[]{
+            "Aplicativo e processos abertos",
+        });
+        while (s.hasNextLine()) {
+            modelo.addRow(new Object[]{
+                s.nextLine(),
+            });
+        }
         long[] arr;
 
         int pos = coluna.getSelectedIndex();
-        
+
         long start, finish;
-        
+
         try {
-            
+
             String url = sA.getSelectedFile();
             RadixSort r = new RadixSort();
             BubbleSort b = new BubbleSort();
             QuickSort q = new QuickSort();
-            
-            
+
             arr = new long[172900];
-            r.values(url,arr, pos);
-            
+            r.values(url, arr, pos);
             modelo.addRow(new Object[]{
-                "Coleta : " + time + ", coluna : "+o.getTitle(),});
-            
+                "",});
+            modelo.addRow(new Object[]{
+                "Coleta : " + time + ", coluna : " + o.getTitle(),});
+
             start = r.time();
             r.runRadixSort(arr);
             finish = r.time();
-            
+
             modelo.addRow(new Object[]{
                 "Radix Sort : " + String.valueOf(finish - start) + " milisegundos \n",});
-            
+
             g.criarGrafico("Radix Sort", finish - start, o.getTitle());
 
             print(arr);
 
-            
             arr = new long[172900];
-            q.values(url,arr, pos);
+            q.values(url, arr, pos);
             start = q.time();
             q.runQuickSort(arr);
             finish = q.time();
-            
-            
+
             modelo.addRow(new Object[]{
                 "\n\nQuick Sort : " + String.valueOf(finish - start) + " milisegundos \n",});
-            
-            g.criarGrafico("Quick Sort", finish - start,o.getTitle());
-            
+
+            g.criarGrafico("Quick Sort", finish - start, o.getTitle());
+
             print(arr);
-            
+
             arr = new long[172900];
-            b.values(url,arr, pos);
+            b.values(url, arr, pos);
             start = b.time();
             b.runBubbleSort(arr);
             finish = b.time();
-            
+
             modelo.addRow(new Object[]{
                 "\n\nBubble Sort : " + String.valueOf(finish - start) + " milisegundos \n",});
-            
+
             g.criarGrafico("Bubble Sort", finish - start, o.getTitle());
-            
+
             print(arr);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Selecione um arquivo");
@@ -213,7 +228,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
                 {null}
             },
             new String [] {
-                "Resultado"
+                "Relatório"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -276,9 +291,9 @@ public class Home extends javax.swing.JFrame implements ActionListener {
         try {
             String[] list = o.titleList(sA.getSelectedFile());
             coluna.removeAllItems();
-            for (String l:list) {
-               coluna.addItem(l);
-            }   
+            for (String l : list) {
+                coluna.addItem(l);
+            }
             coluna.setEnabled(true);
         } catch (Exception ex) {
         }
@@ -316,6 +331,5 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JTable resultadaTable;
     private javax.swing.JLabel urlLabel;
     // End of variables declaration//GEN-END:variables
-
 
 }
