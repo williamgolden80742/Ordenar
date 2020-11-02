@@ -15,11 +15,22 @@ import java.io.IOException;
  * @author William
  */
 public class Ord {
- 
-    void values (String url,long[] arr, int l) throws FileNotFoundException, IOException {
+
+    private static String title;
+
+    public static String getTitle() {
+        return title;
+    }
+
+    public static void setTitle(String title) {
+        Ord.title = title;
+    }
+
+    void values(String url, long[] arr, int l) throws FileNotFoundException, IOException {
         try (BufferedReader buffRead = new BufferedReader(new FileReader(url))) {
             String linha = "";
             int count = 0;
+            int countLinha = 0;
             while (true) {
                 if (linha != null) {
                     String[] arrayDados = linha.split(";");
@@ -27,8 +38,12 @@ public class Ord {
                         linha = arrayDados[l];
                         arr[count++] = Integer.parseInt(linha);
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
-
+                        if (countLinha == 1) {
+                            setTitle(linha);
+                            System.out.println("Title : " + linha);
+                        }
                     }
+                    countLinha++;
                 } else {
                     break;
                 }
@@ -36,14 +51,31 @@ public class Ord {
             }
         }
     }
-    
-    void print(long arr[]) {
-        int n = arr.length;
-        for (int i = 0;i < n; i++) {
-            if (arr[i] != 0) 
-                System.out.println(arr[i] + "");
-           
+
+    String[] titleList(String url) throws FileNotFoundException, IOException {
+        String[] arrayDados = null;
+        try (BufferedReader buffRead = new BufferedReader(new FileReader(url))) {
+            String linha = "";
+            int countLinha = 0;
+            while (true) {
+                if (linha != null) {
+                    if (countLinha == 1) {
+                        arrayDados = linha.split(";");
+                        break;
+                    }
+                    countLinha++;
+                } else {
+                    break;
+                }
+                linha = buffRead.readLine();
+            }
         }
+        return arrayDados;
     }
-    
+
+    long time() {
+        long time = System.currentTimeMillis();
+        return time;
+    }
+
 }

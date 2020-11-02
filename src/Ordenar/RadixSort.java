@@ -7,6 +7,7 @@ package Ordenar;
 
 import java.util.Arrays;
 
+
 /**
  *
  * @author William
@@ -55,7 +56,7 @@ public class RadixSort extends Ord {
         }
     }
     
-    void runRadixSort (long arr[]) {
+    void runRadixSort (long arr[]) {       
         int n = arr.length;
         // Find the maximum number to know number of digits
         long m = getMax(arr, n);
@@ -64,7 +65,7 @@ public class RadixSort extends Ord {
         // instead of passing digit number, exp is passed.
         // exp is 10^i where i is current digit number
         for (int exp = 1; m / exp > 0; exp *= 10) {
-            countSort(arr, n, exp);
-        }
+            countSort(arr, n, exp);           
+        }           
     }
 }
