@@ -16,21 +16,11 @@ import java.io.IOException;
  */
 public class Ord {
 
-    private static String title;
-
-    public static String getTitle() {
-        return title;
-    }
-
-    public static void setTitle(String title) {
-        Ord.title = title;
-    }
 
     void values(String url, long[] arr, int l) throws FileNotFoundException, IOException {
         try (BufferedReader buffRead = new BufferedReader(new FileReader(url))) {
             String linha = "";
             int count = 0;
-            int countLinha = 0;
             while (true) {
                 if (linha != null) {
                     String[] arrayDados = linha.split(";");
@@ -38,11 +28,8 @@ public class Ord {
                         linha = arrayDados[l];
                         arr[count++] = Integer.parseInt(linha);
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
-                        if (countLinha == 1) {
-                            setTitle(linha);
-                        }
+                        
                     }
-                    countLinha++;
                 } else {
                     break;
                 }

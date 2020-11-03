@@ -31,26 +31,18 @@ public class Grafico extends javax.swing.JFrame {
     
     public Grafico() throws IOException {
         initComponents();
-        grafLabel.setIcon(new javax.swing.ImageIcon(getGrafico()));
+        updateGrafico();
     }
 
- 
-    public void criarGrafico(String alg,long mili,String time, int Width, int Height) throws IOException {
+    public void criarGrafico(String alg,long mili,String time) throws IOException {
         Double value =(double) mili;
         value/=1000;
         linha.addValue(value,alg,time);
-    }
-    
-    public void criarGrafico(String alg,long mili,String time) throws IOException {
-        criarGrafico(alg,mili,time,scrollPane.getWidth(),scrollPane.getHeight());
-    }    
-    
-    public Image getGrafico() throws IOException {
-        return grafico.createBufferedImage(scrollPane.getWidth()-5,scrollPane.getHeight()-5);
     }   
+     
     
     public void updateGrafico() throws IOException {
-        grafLabel.setIcon(new javax.swing.ImageIcon(getGrafico()));  
+        grafLabel.setIcon(new javax.swing.ImageIcon(grafico.createBufferedImage(scrollPane.getWidth()-5,scrollPane.getHeight()-5)));  
     }   
 
     @SuppressWarnings("unchecked")

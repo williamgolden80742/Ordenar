@@ -8,15 +8,12 @@ package Ordenar;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -48,10 +45,6 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     void print(long arr[]) {
         int n = arr.length;
         for (int i = 0; i < n; i++) {
-//            if (arr[i] != 0) {
-//                modelo.addRow(new Object[]{
-//                    arr[i],});
-//            }
             if (arr[i] != 0) {
                 System.out.println(arr[i]);
             }
@@ -59,89 +52,104 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     }
 
     void Algoritmos() throws IOException {
-        if (initTable) {
-            modelo = (DefaultTableModel) resultadaTable.getModel();
-            modelo.setNumRows(0);
-            initTable = false;
-        }
-        Ord o = new Ord();
-
-        Date date = new Date();
-        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String time = fmt.format(date);
-
-        System.out.println("Coleta : " + time);
-        
-        Scanner s = new Scanner(Runtime.getRuntime().exec("cmd /c tasklist").getInputStream());
- 
-        
-        modelo.addRow(new Object[]{
-            "",
-        });        
-        modelo.addRow(new Object[]{
-            "Aplicativo e processos abertos",
-        });
-        while (s.hasNextLine()) {
-            modelo.addRow(new Object[]{
-                s.nextLine(),
-            });
-        }
-        long[] arr;
-
-        int pos = coluna.getSelectedIndex();
-
-        long start, finish;
-
         try {
-
+            
+        //PREPARANDO TABELA DE RELATÓRIOS
+            if (initTable) {
+                modelo = (DefaultTableModel) resultadaTable.getModel();
+                modelo.setNumRows(0);
+                initTable = false;
+            }
+        // INSTANCIANDO ARRAY DA DADOS
+            long[] arr;
             String url = sA.getSelectedFile();
+        // INSTANCIANDO ALGORITMOS ORDENAÇÃO E COLETA
             RadixSort r = new RadixSort();
             BubbleSort b = new BubbleSort();
             QuickSort q = new QuickSort();
+            Ord o = new Ord();               
+        // COLETANDO COLUNA SELECIONADA
+            int pos = coluna.getSelectedIndex();
+            String  columnName = (String) coluna.getSelectedItem();
+            
+            long start, finish;
+        // COLETANDO DATA E HORARIO ATUAL
+            Date date = new Date();
+            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String time = fmt.format(date);
+         
+        // IMPRIMANDO COLUNA SELECIONADA    
+            modelo.addRow(new Object[]{
+                "Coleta : " + time + ", Coluna : " + columnName,});
 
+        // RADIX SORT INICIO
+        
+            // Coleta de dados
             arr = new long[172900];
             r.values(url, arr, pos);
-            modelo.addRow(new Object[]{
-                "",});
-            modelo.addRow(new Object[]{
-                "Coleta : " + time + ", coluna : " + o.getTitle(),});
 
             start = r.time();
+            // Rodando algoritmo
             r.runRadixSort(arr);
             finish = r.time();
 
+            // Exibição de tempo 
             modelo.addRow(new Object[]{
                 "Radix Sort : " + String.valueOf(finish - start) + " milisegundos \n",});
 
-            g.criarGrafico("Radix Sort", finish - start, o.getTitle());
+            // Alimentando gráfico
+            g.criarGrafico("Radix Sort", finish - start, columnName);
 
+            // Impressão 
             print(arr);
 
+        // RADIX SORT FINAL  
+        // QUICK SORT INICIO   
+        
+            // Coleta de dados
             arr = new long[172900];
             q.values(url, arr, pos);
+
             start = q.time();
+            // Rodando algoritmo            
             q.runQuickSort(arr);
+
             finish = q.time();
 
+            // Exibição de tempo 
             modelo.addRow(new Object[]{
                 "\n\nQuick Sort : " + String.valueOf(finish - start) + " milisegundos \n",});
 
-            g.criarGrafico("Quick Sort", finish - start, o.getTitle());
+            // Alimentando gráfico
+            g.criarGrafico("Quick Sort", finish - start, columnName);
 
+            // Impressão
             print(arr);
 
+        // QUICK SORT FINAL 
+        // BUBBLE SORT INICIO 
+        
+            // Coleta de dados
             arr = new long[172900];
             b.values(url, arr, pos);
+
             start = b.time();
+            // Rodando algoritmo 
             b.runBubbleSort(arr);
+
             finish = b.time();
 
+            // Exibição de tempo 
             modelo.addRow(new Object[]{
                 "\n\nBubble Sort : " + String.valueOf(finish - start) + " milisegundos \n",});
+            // Alimentando gráfico
+            g.criarGrafico("Bubble Sort", finish - start, columnName);
 
-            g.criarGrafico("Bubble Sort", finish - start, o.getTitle());
-
+            // Impressão
             print(arr);
+
+        // BUBBLE SORT FINAL   
+        
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Selecione um arquivo");
         }
