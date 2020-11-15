@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author William
  */
-public class RadixSort extends Ord {
+public class RadixSort extends Coleta {
     // A utility function to get maximum value in arr[]
     long getMax(long arr[], int n) {
         long mx = arr[0];

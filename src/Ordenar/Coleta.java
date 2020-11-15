@@ -14,7 +14,7 @@ import java.io.IOException;
  *
  * @author William
  */
-public class Ord {
+public class Coleta {
 
 
     void values(String url, long[] arr, int l) throws FileNotFoundException, IOException {

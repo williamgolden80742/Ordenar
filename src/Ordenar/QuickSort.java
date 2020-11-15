@@ -9,7 +9,7 @@ package Ordenar;
  *
  * @author William
  */
-public class QuickSort extends Ord {
+public class QuickSort extends Coleta {
     void quickSort(long[] arr, int left, int right) {
         int i, j;
         long x, y;

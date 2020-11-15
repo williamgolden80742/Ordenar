@@ -9,7 +9,7 @@ package Ordenar;
  *
  * @author William
  */
-public class BubbleSort extends Ord {
+public class BubbleSort extends Coleta {
     
     void runBubbleSort(long[] arr) {
         int aLength = arr.length;

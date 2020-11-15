@@ -67,7 +67,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
             RadixSort r = new RadixSort();
             BubbleSort b = new BubbleSort();
             QuickSort q = new QuickSort();
-            Ord o = new Ord();               
+            Coleta o = new Coleta();               
         // COLETANDO COLUNA SELECIONADA
             int pos = coluna.getSelectedIndex();
             String  columnName = (String) coluna.getSelectedItem();
@@ -294,7 +294,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        Ord o = new Ord();
+        Coleta o = new Coleta();
         urlLabel.setText(" " + sA.getSelectedFile());
         try {
             String[] list = o.titleList(sA.getSelectedFile());
